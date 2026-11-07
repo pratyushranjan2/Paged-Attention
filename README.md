@@ -51,8 +51,6 @@ python bench_memory.py            # figures and results.json go to bench_out/
 
 ### 1. Utilization (used slots / reserved slots)
 
-![Utilization](bench_out/fig1_utilization.png)
-
 | Distribution | Contiguous | Paged |
 |---|---|---|
 | lognormal | 21% | 97% |
@@ -62,8 +60,6 @@ python bench_memory.py            # figures and results.json go to bench_out/
 Contiguous utilization is the mean request length divided by `max_len`, so it falls as requests get shorter. Paged utilization stays near 100% because it only wastes the unused tail of each sequence's last block.
 
 ### 2. Wasted slots per sequence
-
-![Waste vs length](bench_out/fig2_waste_vs_length.png)
 
 | Scheme | Wasted slots per sequence |
 |---|---|
@@ -75,8 +71,6 @@ Contiguous utilization is the mean request length divided by `max_len`, so it fa
 Paged waste is bounded by `block_size - 1` regardless of `max_len`, and it shows up as a sawtooth that resets at each block boundary. A larger block size means fewer table entries but more waste.
 
 ### 3. Max concurrent sequences under a fixed KV budget
-
-![Capacity](bench_out/fig3_max_concurrent.png)
 
 Requests are admitted first-come-first-served until the pool runs out. Paged values are means over 30 random request streams, read off the plot, so treat them as approximate. Contiguous is exactly `budget // max_len`.
 
